@@ -175,9 +175,7 @@ class AtomicData(torch_geometric.data.Data):
             else None
         )
         virials = (
-            voigt_to_matrix(
-                torch.tensor(config.virials, dtype=torch.get_default_dtype())
-            ).unsqueeze(0)
+            torch.tensor(config.virials, dtype=torch.get_default_dtype()).unsqueeze(0)
             if config.virials is not None
             else None
         )
