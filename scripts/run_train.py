@@ -115,7 +115,8 @@ def main() -> None:
     tools.set_seeds(args.seed)
     tools.setup_logger(level=args.log_level, tag=tag, directory=args.log_dir, rank=rank)
     
-    if args.distributed:
+    is_distributed = torch.distributed.is_initialized()
+    if is_distributed:
         torch.cuda.set_device(local_rank)
         logging.info(f"Process group initialized: {torch.distributed.is_initialized()}")
         logging.info(f"Processes: {world_size}")
