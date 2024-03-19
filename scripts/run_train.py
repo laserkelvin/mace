@@ -107,7 +107,7 @@ def main() -> None:
         rank = distr_env.rank
         if rank == 0:
             print(distr_env)
-        torch.distributed.init_process_group(backend='nccl')
+        torch.distributed.init_process_group(backend=arch_params["comm_backend"])
     else:
         rank = int(0)
         
