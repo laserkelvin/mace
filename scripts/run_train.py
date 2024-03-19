@@ -117,7 +117,10 @@ def main() -> None:
     
     is_distributed = torch.distributed.is_initialized()
     if is_distributed:
-        torch.cuda.set_device(local_rank)
+        if arch_params["target_arch"] == "xpu":
+            torch.xpu.set_device(local_rank)
+        elif arch_params["target_arch"] == "cuda":
+            torch.cuda.set_device(local_rank)
         logging.info(f"Process group initialized: {torch.distributed.is_initialized()}")
         logging.info(f"Processes: {world_size}")
     
