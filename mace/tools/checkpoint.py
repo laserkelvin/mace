@@ -137,14 +137,9 @@ class CheckpointIO:
             else:
                 selected_checkpoint_info_list_no_swa.append(ckp)
         if swa:
-            try:
-                latest_checkpoint_info = max(
-                    selected_checkpoint_info_list_swa, key=lambda info: info.epochs
-                )
-            except ValueError:
-                logging.warning(
-                    "No SWA checkpoint found, while SWA is enabled. Compare the swa_start parameter and the latest checkpoint."
-                )
+            latest_checkpoint_info = max(
+                selected_checkpoint_info_list_swa, key=lambda info: info.epochs
+            )
         else:
             latest_checkpoint_info = max(
                 selected_checkpoint_info_list_no_swa, key=lambda info: info.epochs
