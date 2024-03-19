@@ -90,9 +90,15 @@ def determine_arch() -> dict[str, str]:
 def main() -> None:
     args = tools.build_default_arg_parser().parse_args()
     tag = tools.get_tag(name=args.name, seed=args.seed)
+    arch_params = determine_arch()
     if args.distributed:
         try:
-            distr_env = DistributedEnvironment()
+            if arch_params["comm_backend"] != "ccl":
+                env_var_target = None
+            else:
+                env_var_target = "ccl"
+            # tell `DistributedEnvironment` how to parse distributed parameters
+            distr_env = DistributedEnvironment(env_var_target)
         except Exception as e:
             logging.info(f'Error specifying environment for distributed training: {e}')
             return
