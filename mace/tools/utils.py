@@ -50,7 +50,6 @@ def setup_logger(
     level: Union[int, str] = logging.INFO,
     tag: Optional[str] = None,
     directory: Optional[str] = None,
-    rank: Optional[int] = 0,
 ):
     logger = logging.getLogger()
     logger.setLevel(level)
@@ -63,8 +62,6 @@ def setup_logger(
     ch = logging.StreamHandler(stream=sys.stdout)
     ch.setFormatter(formatter)
     logger.addHandler(ch)
-    
-    logger.addFilter(lambda _ : (rank == 0))
 
     if (directory is not None) and (tag is not None):
         os.makedirs(name=directory, exist_ok=True)
