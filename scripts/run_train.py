@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Optional
 import json
 import os
-from importlib import find_spec
+from importlib.util import find_spec
 
 import numpy as np
 import torch.nn.functional
