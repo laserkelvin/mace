@@ -494,6 +494,11 @@ def build_default_arg_parser() -> argparse.ArgumentParser:
             "forces_weight",
         ],
     )
+    parser.add_argument(
+        "--statistics_file",
+        help="Path to a statistics file to use.",
+        type=str,
+    )
     return parser
 
 
